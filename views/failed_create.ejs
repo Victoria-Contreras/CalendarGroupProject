@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+          crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <title>GROUP 3 CALENDAR APP</title>
+    </head> 
+<body>
+  <header>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-center align-items-center">
+                <form action="/create_account" method="POST">
+                    <fieldset class="d-flex flex-column justify-content-center align-items-center">
+                        <legend class="text-center">CREATE ACCOUNT</legend>
+                        <div>
+                          <label for="username">Username</label>
+                          <input type="text" name="username" id="username" />
+                        </div>
+                        <div class="my-3">
+                            <label for="passphrase">Password&nbsp;</label>
+                            <input type="password" name="passphrase" id="passphrase" />
+                        </div>
+                        <button type="submit">Create</button>
+                    </fieldset>
+                </form>
+                <span class="login-element text-center my-2" style="color: red;">Username already exists</span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="/js/script.js" crossorigin="anonymous"></script>
+  </footer>
+</body>
+</html>
