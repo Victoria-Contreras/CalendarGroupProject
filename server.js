@@ -18,7 +18,27 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-
+app.use(
+    session({
+       secret: 'secret',
+       resave: false,
+       saveUninitialized: true,
+       cookie: {
+        secure: false,
+        maxAge: 2592000000,
+       } 
+    })
+  );
+  
+//middleware for login check
+app.use('/calendar',function(req, res, next) {
+if (req.session.user == null){
+    console.log("Redirect Middleware");
+    return res.render('login');
+} else{
+    next();
+}
+});
 
 //test for accessibility
 app.get('/heartbeat', (req, res) => {
