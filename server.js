@@ -18,6 +18,27 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
+app.use(
+    session({
+       secret: 'secret',
+       resave: false,
+       saveUninitialized: true,
+       cookie: {
+        secure: false,
+        maxAge: 2592000000,
+       } 
+    })
+  );
+  
+//middleware for login check
+app.use('/calendar',function(req, res, next) {
+if (req.session.user == null){
+    console.log("Redirect Middleware");
+    return res.render('login');
+} else{
+    next();
+}
+});
 
 //test for accessibility
 app.get('/heartbeat', (req, res) => {
@@ -87,13 +108,22 @@ app.get('/', async(req, res) => {
 
 app.get("/calendar/home", async (req, res) => {
     const events = await Event.findAll();
-    res.send(events)
+    res.render('home');
+})
+
+app.get("/calendar/new-event", async (req, res) => {
+    const today = new Date();
+    todayStr = ((today.getFullYear()+'-'+today.getMonth()+1)+'-'+today.getDate())
+    console.log(todayStr);
+    res.render('create_event', {todayStr: todayStr});
 })
 
 app.post("/calendar/new-event", async (req, res) => {
+    const eventDate = new Date(req.body.eventDate);
+
     try {
         const newEvent = await Event.create({
-            date: Sequelize.literal('CURRENT_TIMESTAMP'),
+            date: eventDate,
             title: req.body.title, 
             description: req.body.description,
 
