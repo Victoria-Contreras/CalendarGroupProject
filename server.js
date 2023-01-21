@@ -108,13 +108,22 @@ app.get('/', async(req, res) => {
 
 app.get("/calendar/home", async (req, res) => {
     const events = await Event.findAll();
-    res.send(events)
+    res.render('home');
+})
+
+app.get("/calendar/new-event", async (req, res) => {
+    const today = new Date();
+    todayStr = ((today.getFullYear()+'-'+today.getMonth()+1)+'-'+today.getDate())
+    console.log(todayStr);
+    res.render('create_event', {todayStr: todayStr});
 })
 
 app.post("/calendar/new-event", async (req, res) => {
+    const eventDate = new Date(req.body.eventDate);
+
     try {
         const newEvent = await Event.create({
-            date: Sequelize.literal('CURRENT_TIMESTAMP'),
+            date: eventDate,
             title: req.body.title, 
             description: req.body.description,
 
