@@ -7,6 +7,7 @@ const { Op } = require('sequelize');
 
 const { User } = require('./models');
 const { Event } = require('./models');
+const { UserEvent } = require('./models');
 
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
@@ -112,10 +113,14 @@ app.get("/calendar/home", async (req, res) => {
 })
 
 app.get("/calendar/new-event", async (req, res) => {
-    const today = new Date();
-    todayStr = ((today.getFullYear()+'-'+today.getMonth()+1)+'-'+today.getDate())
-    console.log(todayStr);
-    res.render('create_event', {todayStr: todayStr});
+    const users = await User.findAll({
+        where: {
+            username: {
+                [Op.notIn]: [req.session.user]
+            }
+        }
+    });
+    res.render('create_event', {users: users});
 })
 
 app.post("/calendar/new-event", async (req, res) => {
@@ -128,9 +133,15 @@ app.post("/calendar/new-event", async (req, res) => {
             description: req.body.description,
 
         })
-        res.send("Event Added")
+        .then(async(data) => {
+            const newUserEvent = await UserEvent.create({
+                username: req.session.user,
+                eventID: data.id
+            });
+            res.send("Event Added");
+        })
     } catch (error) {
-        res.send('Error')
+        res.send('Error');
     }
 })
 
