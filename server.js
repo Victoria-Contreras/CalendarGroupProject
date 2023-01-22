@@ -102,14 +102,30 @@ app.get('/failed_create', async (req, res) => {
     res.render('failed_create');
 });
 
+app.get('/logout', async (req, res) => {
+    req.session.destroy();
+    res.render('login');
+});
+
 // Main app routes
 app.get('/', async(req, res) => {
     res.redirect('/calendar/home');
 });
 
 app.get("/calendar/home", async (req, res) => {
-    const events = await Event.findAll();
-    res.render('home');
+    const events = await Event.findAll({
+        where: {
+            id: {
+                [Op.in]:  
+                        Sequelize.literal(`(SELECT "eventID" FROM "UserEvents" WHERE username='${req.session.user}')`)
+            }
+        },
+        order: [
+            [Sequelize.literal('date'), 'DESC']
+        ]
+    });
+    
+    res.render('home', {events: events});
 })
 
 app.get("/calendar/new-event", async (req, res) => {
