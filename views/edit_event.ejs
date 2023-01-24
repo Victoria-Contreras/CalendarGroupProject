@@ -16,12 +16,12 @@
     </head> 
 <body>
   <header>
-    <form class="mx-3" id="add-event" action="/calendar/new-event" method="POST">
+    <form class="mx-3" id="edit-event" action="/calendar/modify-event/<%= event.id %>?_method=PUT" method="POST">
         <label for="title">Event:</label><br>
-        <input type="text" id="title" name="title" placeholder="title"><br>
+        <input type="text" id="title" name="title" placeholder="title" value="<%= event.title %>"><br>
         <label for="description">Event description:</label><br>
-        <input type="text" id="description" name="description"><br><br>
-        <input type="datetime-local" id="eventDate" name="eventDate"><br><br>
+        <input type="text" id="description" name="description" value="<%= event.description %>"><br><br>
+        <input type="datetime-local" id="eventDate" name="eventDate" value="<%= charDate %>"><br><br>
         <select class="selectpicker" id="invitees" name="invitees" multiple aria-label="size 3 select example">
         <% users.forEach((account) => { %>
                 <option value="<%= account.username %>"><%= account.username %></option>
