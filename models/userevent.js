@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   UserEvent.init({
     username: DataTypes.STRING,
-    eventID: DataTypes.INTEGER
+    eventID: DataTypes.INTEGER,
+    creator: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'UserEvent',

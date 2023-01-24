@@ -23,8 +23,30 @@
     <form action="/logout" method="GET"> 
       <button action="submit"> Logout </button>
     </form>
+    <br>
+    <h2>My Events</h1>
+    <% eventsCreator.forEach((userEvent) => { %>
+      <div class="card m-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= userEvent.title %></h5>
+          <p class="card-text"><%= userEvent.description %></p>
+          <p class="card-text"><%= userEvent.date %></p>
+          
+          <div class="d-flex flex-row">
+            <form class="mx-1" method="POST" action="/calendar/delete-event/<%= userEvent.id %>?_method=DELETE">
+             <button type="submit"><i class="bi-trash-fill" style="pointer-events: none"></i></button>
+            </form>
+            <form class="mx-1" method="GET" action="/calendar/modify-event/<%= userEvent.id %>">
+             <button type="submit"><i class="bi-pencil" style="pointer-events: none"></i></button>
+           </form>
+          </div>
 
-    <% events.forEach((userEvent) => { %>
+        </div>
+      </div>
+    <% }) %>
+    <br>
+    <h2>Invited Events</h1>
+    <% eventsInvitee.forEach((userEvent) => { %>
       <div class="card m-3">
         <div class="card-body">
           <h5 class="card-title"><%= userEvent.title %></h5>
