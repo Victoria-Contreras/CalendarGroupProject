@@ -264,4 +264,4 @@ app.delete('/calendar/delete-event/:id', async (req, res) => {
 })
 
 //listen on port 3000
-app.listen(3000)
+app.listen(3000, () => console.log("server listening on 3000"))
