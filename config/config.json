@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "postgres",
-    "password": "Arako200",
+    "password": "password",
     "database": "calendar_db",
     "host": "127.0.0.1",
     "dialect": "postgres"
@@ -14,10 +14,10 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
-    "password": "Arako200",
+    "username": "calendar_db_user",
+    "password": "30ky2h8MCvetcI60wTj8KLzj9lfGRV6M",
     "database": "calendar_db",
-    "host": "127.0.0.1",
+    "host": "dpg-cf87e2pgp3jqqerb0sg0-a",
     "dialect": "postgres"
   }
 }
