@@ -4,7 +4,8 @@ const session = require('express-session');
 const path = require('path');
 const app = express();
 const methodOverride = require('method-override')
-const Sequelize = require('sequelize');
+const {Sequelize} = require('sequelize');
+const sequelize = new Sequelize('postgres://calendar_db_user:30ky2h8MCvetcI60wTj8KLzj9lfGRV6M@dpg-cf87e2pgp3jqqerb0sg0-a/calendar_db')
 const { Op } = require('sequelize');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
@@ -128,7 +129,7 @@ app.get("/calendar/home", async (req, res) => {
             }
         },
         order: [
-            [Sequelize.literal('date'), 'DESC']
+            [Sequelize.literal('date'), 'ASC']
         ]
     });
 
@@ -140,7 +141,7 @@ app.get("/calendar/home", async (req, res) => {
             }
         },
         order: [
-            [Sequelize.literal('date'), 'DESC']
+            [Sequelize.literal('date'), 'ASC']
         ]
     });
     
