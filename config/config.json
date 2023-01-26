@@ -8,7 +8,7 @@
   },
   "test": {
     "username": "postgres",
-    "password": "Arako200",
+    "password": "password",
     "database": "calendar_db",
     "host": "127.0.0.1",
     "dialect": "postgres"
