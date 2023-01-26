@@ -12,25 +12,40 @@
           crossorigin="anonymous"
         />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-        <title>GROUP 3 CALENDAR APP</title>
+        <title>Home</title>
     </head> 
 <body>
   <header>
-    <form action="/calendar/new-event" method="GET"> 
-      <button action="submit"> New Event </button>
-    </form>
-    <br><br>
-    <form action="/logout" method="GET"> 
-      <button action="submit"> Logout </button>
-    </form>
-    <br>
-    <h2>My Events</h1>
-    <% eventsCreator.forEach((userEvent) => { %>
+    
+    <nav class="navbar">
+      <a class="navbar-brand">Heads Up </a>
+
+       <form action="/calendar/new-event" method="GET"> 
+      <button class="btn btn-outline-success" button action="submit"> Create New Event </button>
+</form>
+      <form action="/logout" method="GET"form class="form-inline"> 
+        <button class="btn btn-sm btn-outline-secondary" button action="submit"> Logout </button>
+      </form>
+   </form>
+   
+  </header></nav>
+
+    <section class="vh-100" style="background-color: #325830b8;">
+      <div class="container ">
+        <div class="row d-flex justify-content-center align-items-center">
+        
+                      <div class=" text-center mt-5 ">
+   
+                             <h2>My Events</h1>
+
+          </div>
+
+     <% eventsCreator.forEach((userEvent) => { %>
       <div class="card m-3">
         <div class="card-body">
-          <h5 class="card-title"><%= userEvent.title %></h5>
+          <h5 class="card-title"><%= userEvent.date %></h5>
+          <p class="card-text"><b><%= userEvent.title %></b></p>
           <p class="card-text"><%= userEvent.description %></p>
-          <p class="card-text"><%= userEvent.date %></p>
           
           <div class="d-flex flex-row">
             <form class="mx-1" method="POST" action="/calendar/delete-event/<%= userEvent.id %>?_method=DELETE">
@@ -39,27 +54,49 @@
             <form class="mx-1" method="GET" action="/calendar/modify-event/<%= userEvent.id %>">
              <button type="submit"><i class="bi-pencil" style="pointer-events: none"></i></button>
            </form>
-          </div>
-
-        </div>
-      </div>
+         
+          </div></div></div>
     <% }) %>
+
+         
     <br>
+
+    <div class=" text-center">
+
     <h2>Invited Events</h1>
+    </div>
     <% eventsInvitee.forEach((userEvent) => { %>
       <div class="card m-3">
         <div class="card-body">
           <h5 class="card-title"><%= userEvent.title %></h5>
           <p class="card-text"><%= userEvent.description %></p>
-          <p class="card-text"><%= userEvent.date %></p>
-        </div>
-      </div>
+          <p class="card-text"><%= userEvent.title %></p>
+        
+          <div class="d-flex flex-row">
+        <form class="mx-1" method="POST" action="/calendar/delete-event/<%= userEvent.id %>?_method=DELETE">
+         <button type="submit"><i class="bi-trash-fill" style="pointer-events: none"></i></button>
+        </form>
+        <form class="mx-1" method="GET" action="/calendar/modify-event/<%= userEvent.id %>">
+         <button type="submit"><i class="bi-pencil" style="pointer-events: none"></i></button>
+       </form>
     <% }) %>
 
-  </header>
-  <footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="/js/home.js"></script>
+
+      </section>
+      
+
+
+
+
+
+        </div></div></div>
+
+
+
   </footer>
+
 </body>
 </html>
+
+
+

@@ -12,22 +12,42 @@
           crossorigin="anonymous"
         />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <title>GROUP 3 CALENDAR APP</title>
+        <title>create event</title>
     </head> 
 <body>
   <header>
+  <section class="vh-100" style="background-color: #325830b8;">
+      <div class="container ">
+    <div class="row ">
+      <div class="col-lg-7 mx-auto">
+        <div class="card mt-2 mx-auto p-4 bg-light">
+            <div class="card-body bg-light">
+       
+
+   
     <form class="mx-3" id="add-event" action="/calendar/new-event" method="POST">
         <label for="title">Event:</label><br>
         <input type="text" id="title" name="title" placeholder="title"><br>
+
         <label for="description">Event description:</label><br>
-        <input type="text" id="description" name="description"><br><br>
+        <textarea class="form-control" id="description" rows="3"></textarea><br><br>
+
         <input type="datetime-local" id="eventDate" name="eventDate"><br><br>
+        <label for="description">Invite Friends:</label><br>
         <select class="selectpicker" id="invitees" name="invitees" multiple aria-label="size 3 select example">
+          
+       
         <% users.forEach((account) => { %>
+          
                 <option value="<%= account.username %>"><%= account.username %></option>
         <% }) %>
         </select><br><br>
         <input type="submit" value="Submit">
+
+      </div> </div>
+
+</div></div></div></div>
+
     </form>
   </header>
   <footer>
