@@ -39,6 +39,7 @@
       <% eventsCreator.forEach((userEvent) => { %>
       <div class="card m-3">
         <div class="card-body">
+
           <h5 class="card-title"><%= userEvent.title %></h5>
           <p class="card-text"><b><%= userEvent.date.toString().substring(0,24) %></b></p>
           <p class="card-text">Description: <%= userEvent.description %></p>
@@ -61,11 +62,10 @@
           <form class="mx-1" method="GET" action="/calendar/modify-event/<%= userEvent.id %>">
             <button type="submit"><i class="bi-pencil" style="pointer-events: none"></i></button>
           </form>
+          <button onClick="window.open('/chat/<%= userEvent.id %>');"><i class="bi-chat" style="pointer-events: none"></i></button>
         </div>
       </div>
-      <% }) %>
-
-         
+      <% }) %>         
     <br>
 
     <div class=" text-center">
@@ -76,6 +76,7 @@
       <div class="card m-3">
         <div class="card-body">
           <h5 class="card-title"><%= userEvent.title %></h5>
+
           <p class="card-text"><b><%= userEvent.date.toString().substring(0,24) %></b></p>
           <p class="card-text">Description: <%= userEvent.description %></p>
         </div>
@@ -94,15 +95,17 @@
             <% }}) %>
           </ul>
         </div>
-        <!-- <div class="d-flex flex-row mb-2 justify-content-center">
-          <form class="mx-1" method="POST" action="/calendar/delete-event/<%= userEvent.id %>?_method=DELETE">
+         <div class="d-flex flex-row mb-2 justify-content-center">
+          <!-- <form class="mx-1" method="POST" action="/calendar/delete-event/<%= userEvent.id %>?_method=DELETE">
             <button type="submit"><i class="bi-trash-fill" style="pointer-events: none"></i></button>
           </form>
           <form class="mx-1" method="GET" action="/calendar/modify-event/<%= userEvent.id %>">
             <button type="submit"><i class="bi-pencil" style="pointer-events: none"></i></button>
-          </form>
-        </div> -->
+          </form> -->
+          <button onClick="window.open('/chat/<%= userEvent.id %>');"><i class="bi-chat" style="pointer-events: none"></i></button>
+        </div> 
        </div>
+
     <% }) %>
 
 

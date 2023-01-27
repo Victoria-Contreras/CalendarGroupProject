@@ -13,6 +13,7 @@ const bcrypt = require('bcrypt');
 const { User } = require('./models');
 const { Event } = require('./models');
 const { UserEvent } = require('./models');
+const { Message } = require('./models');
 //ejs view and static paths
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -22,6 +23,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 //session settings
+const http=require('http');
+const server=http.createServer(app);
+const { Server }=require("socket.io");
+const io=new Server(server);
+
 app.use(cookieParser());
 
 app.use(
@@ -265,5 +271,35 @@ app.delete('/calendar/delete-event/:id', async (req, res) => {
     }
 })
 
+//rooms
+app.get("/chat/:room", async (req, res) => {
+    const messages = await Message.findAll({
+        where: {
+            eventID: req.params.room
+        }
+    });
+    const event = await Event.findAll({
+        where: {
+            id: req.params.room
+        }
+    });
+    let roomTitle = (event[0].title).toUpperCase();
+    res.render('room',{messages: messages, room: req.params.room, title: roomTitle});
+});
+
+app.post("/chat/:room", async (req, res) => {
+    const newMessage = await Message.create({
+        name: req.session.user,
+        message: req.body.message,
+        eventID: parseInt(req.params.room)
+    })
+    io.to(req.params.room).emit('chat message', {name: req.session.user, message: req.body.message, date: newMessage.createdAt});
+    res.redirect(`/chat/${req.params.room}`);
+});
+
+io.on("connection", socket => {
+    socket.join(socket.handshake.query.room);
+});
+
 //listen on port 3000
-app.listen(3000, () => console.log("server listening on 3000"))
+server.listen(3000, () => console.log("server listening on 3000"))
