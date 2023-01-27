@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+          crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <title><%= title %> CHAT ROOM</title>
+    </head> 
+<body>
+    <div class="d-flex flex-column justify-content-start mx-3" style="height: 95vh">
+        <div style="height: 95%">
+            <div id="messages" style="height: 95%; overflow-y: scroll;">
+                <div class="mb-3"><h3><%= title %> CHAT ROOM </h3></div>
+                <% messages.forEach((message) => { %>
+                    <div>
+                        <h4><%= message.name %></h4>
+                        <p style="font-size: 10px"><%= message.createdAt %></p>
+                        <p><%= message.message %></p>
+                        <br>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+        <br>
+        <div>
+            <form class="chatInput" id="<%= room %>" action="/chat/<%= room %>" method="POST" style="height: 10%">
+                <input type="text" id = "message" name="message" class="form-control" placeholder="Your Message Here">
+                <input type="submit" style="display: none" />
+            </form>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/room.js"></script>
+</body>
+</html>
