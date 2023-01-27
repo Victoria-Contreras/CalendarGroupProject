@@ -32,53 +32,77 @@
 
     <section class="vh-100" style="background-color: #325830b8;">
       <div class="container ">
-        <div class="row d-flex justify-content-center align-items-center">
-        
-                      <div class=" text-center mt-5 ">
-   
-                             <h2>My Events</h1>
-
+        <div class="row d-flex justify-content-center align-items-center">        
+          <div class=" text-center mt-5 ">
+            <h2>My Events</h2>
           </div>
-
-     <% eventsCreator.forEach((userEvent) => { %>
+      <% eventsCreator.forEach((userEvent) => { %>
       <div class="card m-3">
         <div class="card-body">
-          <h5 class="card-title"><%= userEvent.date %></h5>
-          <p class="card-text"><b><%= userEvent.title %></b></p>
-          <p class="card-text"><%= userEvent.description %></p>
-          
-          <div class="d-flex flex-row">
-            <form class="mx-1" method="POST" action="/calendar/delete-event/<%= userEvent.id %>?_method=DELETE">
-             <button type="submit"><i class="bi-trash-fill" style="pointer-events: none"></i></button>
-            </form>
-            <form class="mx-1" method="GET" action="/calendar/modify-event/<%= userEvent.id %>">
-             <button type="submit"><i class="bi-pencil" style="pointer-events: none"></i></button>
-           </form>
-         
-          </div></div></div>
-    <% }) %>
+          <h5 class="card-title"><%= userEvent.title %></h5>
+          <p class="card-text"><b><%= userEvent.date.toString().substring(0,24) %></b></p>
+          <p class="card-text">Description: <%= userEvent.description %></p>
+        </div>
+        <div class="card-footer mb-2">
+          <p class="text-center">Shared with</p>
+          <ul class="list-group">
+              <% allUserEvents.forEach((event)=> { if (userEvent.id == event.eventID && event.creator == false) { %>
+              <li class="list-group-item">
+                <%= event.username %>
+              </li>
+              <% } })%>
+          </ul>
+        </div>
+
+        <div class="d-flex flex-row mb-2 justify-content-center">
+          <form class="mx-1" method="POST" action="/calendar/delete-event/<%= userEvent.id %>?_method=DELETE">
+            <button type="submit"><i class="bi-trash-fill" style="pointer-events: none"></i></button>
+          </form>
+          <form class="mx-1" method="GET" action="/calendar/modify-event/<%= userEvent.id %>">
+            <button type="submit"><i class="bi-pencil" style="pointer-events: none"></i></button>
+          </form>
+        </div>
+      </div>
+      <% }) %>
 
          
     <br>
 
     <div class=" text-center">
 
-    <h2>Invited Events</h1>
+    <h2>Invites</h2>
     </div>
     <% eventsInvitee.forEach((userEvent) => { %>
       <div class="card m-3">
         <div class="card-body">
           <h5 class="card-title"><%= userEvent.title %></h5>
-          <p class="card-text"><%= userEvent.description %></p>
-          <p class="card-text"><%= userEvent.title %></p>
-        
-          <div class="d-flex flex-row">
-        <form class="mx-1" method="POST" action="/calendar/delete-event/<%= userEvent.id %>?_method=DELETE">
-         <button type="submit"><i class="bi-trash-fill" style="pointer-events: none"></i></button>
-        </form>
-        <form class="mx-1" method="GET" action="/calendar/modify-event/<%= userEvent.id %>">
-         <button type="submit"><i class="bi-pencil" style="pointer-events: none"></i></button>
-       </form>
+          <p class="card-text"><b><%= userEvent.date.toString().substring(0,24) %></b></p>
+          <p class="card-text">Description: <%= userEvent.description %></p>
+        </div>
+        <div class="card-footer mb-2">
+          <p class="text-center">Created By: 
+            <% allUserEvents.forEach((event)=> { if (userEvent.id == event.eventID && event.creator == true) { %>
+              <%= event.username %>
+            <% }})%>
+          </p>
+          <p class="text-center">Shared with:</p>
+          <ul class="list-group">
+            <% allUserEvents.forEach((event)=> { if(userEvent.id == event.eventID && event.creator == false){ %>
+              <li class="list-group-item">
+                <%= event.username %>
+              </li>
+            <% }}) %>
+          </ul>
+        </div>
+        <!-- <div class="d-flex flex-row mb-2 justify-content-center">
+          <form class="mx-1" method="POST" action="/calendar/delete-event/<%= userEvent.id %>?_method=DELETE">
+            <button type="submit"><i class="bi-trash-fill" style="pointer-events: none"></i></button>
+          </form>
+          <form class="mx-1" method="GET" action="/calendar/modify-event/<%= userEvent.id %>">
+            <button type="submit"><i class="bi-pencil" style="pointer-events: none"></i></button>
+          </form>
+        </div> -->
+       </div>
     <% }) %>
 
 
