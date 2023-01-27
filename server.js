@@ -150,8 +150,10 @@ app.get("/calendar/home", async (req, res) => {
             [Sequelize.literal('date'), 'ASC']
         ]
     });
+
+    const userEvents = await UserEvent.findAll()
     
-    res.render('home', {eventsCreator: eventsCreator, eventsInvitee: eventsInvitee});
+    res.render('home', {eventsCreator: eventsCreator, eventsInvitee: eventsInvitee, allUserEvents: userEvents});
 })
 
 //create new event
